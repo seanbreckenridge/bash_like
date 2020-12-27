@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import sys
 import os
 from typing import Any, Optional, Union, Iterator, Tuple, TypeVar, Callable, Set
