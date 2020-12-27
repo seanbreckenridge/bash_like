@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import sys
 import os
 import tempfile
@@ -31,7 +29,7 @@ def test_environ_or_exit_fails(capsys: Any) -> None:
     if "SOME_ARG" in os.environ:
         del os.environ["SOME_ARG"]
     with pytest.raises(SystemExit):
-        val = SO | ("SOME_ARG", "couldnt find SOME_ARG as an environment variable")
+        SO | ("SOME_ARG", "couldnt find SOME_ARG as an environment variable")
     captured = capsys.readouterr()
     captured_err = captured.err.splitlines()
     assert len(captured_err) == 1
@@ -47,7 +45,7 @@ def test_sys_argv_succeeds() -> None:
 def test_sys_argv_fails(capsys: Any) -> None:
     sys.argv = []
     with pytest.raises(SystemExit):
-        val = SO | (1, "Provide the number of things to do as the first CLI argument!")
+        SO | (1, "Provide the number of things to do as the first CLI argument!")
     captured = capsys.readouterr()
     captured_err = captured.err.splitlines()
     assert len(captured_err) == 1

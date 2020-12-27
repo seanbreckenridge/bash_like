@@ -1,8 +1,6 @@
-from __future__ import annotations
-
 import sys
 import os
-from typing import Any, Optional, Union, Iterator, Tuple, TypeVar, Callable, Set
+from typing import Any, Union, Iterator, Tuple, Set
 
 
 class ShellOperations:

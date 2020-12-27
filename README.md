@@ -6,7 +6,7 @@ A small utility library to handle arguments and read/write text to files using b
 
 ## Installation
 
-Requires `python3.5+`
+Requires `python3.6+`
 
 To install with pip, run:
 
