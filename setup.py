@@ -7,7 +7,7 @@ with io.open("README.md", encoding="utf-8") as fo:
 
 setup(
     name="bash_like",
-    version="0.1.0",
+    version="0.1.1",
     url="https://github.com/seanbreckenridge/bash_like",
     author="Sean Breckenridge",
     author_email="seanbrecke@gmail.com",
