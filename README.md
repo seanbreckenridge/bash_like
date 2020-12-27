@@ -11,3 +11,49 @@ Requires `python3.6+`
 To install with pip, run:
 
     pip install bash_like
+
+---
+
+This creates small helper function/symbols to handle some common patterns when creating python scripts
+
+To use, include the following imports at the top:
+
+```python
+from bash_like import S, SO  # (Shell, ShellOperations)
+```
+
+| Description                                                           | Bash                                                                                             | bash_like (python)                                                                                               |
+| --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| Write a string to a file                                              | `echo hello > file.txt`                                                                          | `S("hello") > "file.txt"`                                                                                        |
+| Append to file                                                        | `echo hello >> file.txt`                                                                         | `S("hello") >> "file.txt"`                                                                                       |
+| Print to STDERR (2)                                                   | `echo hello 1>&2`                                                                                | `S("hello") > 2`                                                                                                 |
+| Print to STDOUT (1)                                                   | `echo hello`                                                                                     | `S("hello") > 1`                                                                                                 |
+| Read text from a file                                                 | `<input.txt`                                                                                     | `SO < "input.txt"`                                                                                               |
+| Read lines from a file (strips, and ignores empty lines)              | `while read line; do echo line; done <input.txt`                                                 | `SO << "input.txt"`                                                                                              |
+| Get Environment or CLI argument, If not present, print error and exit | `FILE="${1:?Provide file as first CLI arg}" ;VAL="${CONFIG_VAR:?Error - CONFIG_VAR is not set}"` | `file = SO \| (1, "Provide file as first CLI arg"); val = SO \| ("CONFIG_VAR", "Error - CONFIG_VAR is not set")` |
+| Get Environment or CLI argument, If not present, use default          | `FILE="${1:-output.txt}"; VAL="${DIFFERENCE:-5}"`                                                | `file = SO - (1, "output.txt"); val = SO - ("DIFFERENCE", 5)`                                                    |
+
+Of course, you don't have to use `hello` for the strings, wrapping any python string in `S` allows you to quickly redirect it to a file, without having to do the `with` block:
+
+As a more complete example, this takes a file as input, and writes the contents of that file in lower case to `${XDG_DATA_HOME:-$HOME/.local/share}/some_file.txt`. It:
+
+- uses the first CLI argument as the input file, else throws an error and exits
+- uses the second CLI argument as basename, else defaults to `output.txt`
+- uses `APP_DATA` (some environment variable for your application) if present, else defaults to `~/.local/share`
+
+```python3
+from os import path, environ, makedirs
+from time import time
+
+from bash_like import S, SO
+
+# the 1 and 2 correspond to sys.argv[1] and sys.argv[2], if they're present
+inp = SO | (1, "Error: no input file provided as first argument")
+out = SO - (2, "output.txt")
+app_data = SO - ("APP_DATA", path.join(environ["HOME"], ".local", "share"))
+
+# read file, casefold (lowercase), and write to file
+S((SO < inp).casefold()) > path.join(app_data, out)
+# append current time to a temporary logfile
+S(f"{time()}\n") >> "/tmp/time.log"
+```
