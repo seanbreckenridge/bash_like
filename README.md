@@ -35,11 +35,13 @@ from bash_like import S, SO  # (Shell, ShellOperations)
 
 Of course, you don't have to use `hello` for the strings, wrapping any python string in `S` allows you to quickly redirect it to a file, without having to do the `with` block:
 
-As a more complete example, this takes a file as input, and writes the contents of that file in lower case to `${XDG_DATA_HOME:-$HOME/.local/share}/some_file.txt`. It:
+As a more complete example, this takes a file as input, and writes the contents of that file in lower case to `${APP_DATA:-$HOME/.local/share}/....`. It:
 
 - uses the first CLI argument as the input file, else prints an error and exits
 - uses the second CLI argument as basename, else defaults to `output.txt`
 - uses `APP_DATA` (some environment variable for your application) if present, else defaults to `~/.local/share`
+
+`APP_DATA=~/.local/appdata python3 main.py input.txt output.txt` would write to `~/.local/appdata/output.txt`
 
 ```python3
 from os import path, environ
