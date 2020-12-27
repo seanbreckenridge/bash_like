@@ -37,12 +37,12 @@ Of course, you don't have to use `hello` for the strings, wrapping any python st
 
 As a more complete example, this takes a file as input, and writes the contents of that file in lower case to `${XDG_DATA_HOME:-$HOME/.local/share}/some_file.txt`. It:
 
-- uses the first CLI argument as the input file, else throws an error and exits
+- uses the first CLI argument as the input file, else prints an error and exits
 - uses the second CLI argument as basename, else defaults to `output.txt`
 - uses `APP_DATA` (some environment variable for your application) if present, else defaults to `~/.local/share`
 
 ```python3
-from os import path, environ, makedirs
+from os import path, environ
 from time import time
 
 from bash_like import S, SO

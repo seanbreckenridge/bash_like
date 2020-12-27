@@ -77,7 +77,7 @@ class Shell:
         if isinstance(target, int):
             if target not in self.__class__.allowed_fds:
                 raise ValueError(
-                    "If integer, target filename must be 1 (for STDOUT) or 2 (for STDERR). Recieved {}".format(
+                    "If integer, target filename must be 1 (for STDOUT) or 2 (for STDERR). Received {}".format(
                         target
                     )
                 )

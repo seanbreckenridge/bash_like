@@ -1,4 +1,4 @@
-from os import path, environ, makedirs
+from os import path, environ
 from time import time
 
 from bash_like import S, SO
