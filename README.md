@@ -41,7 +41,7 @@ As a more complete example, this takes a file as input, and writes the contents 
 - uses the second CLI argument as basename, else defaults to `output.txt`
 - uses `APP_DATA` (some environment variable for your application) if present, else defaults to `~/.local/share`
 
-`APP_DATA=~/.local/appdata python3 main.py input.txt output.txt` would write to `~/.local/appdata/output.txt`
+`APP_DATA=~/.local/appdata python3 main.py input.txt fout.txt` would write to `~/.local/appdata/fout.txt`
 
 ```python3
 from os import path, environ
