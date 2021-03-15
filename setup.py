@@ -5,9 +5,10 @@ from setuptools import setup, find_packages
 with io.open("README.md", encoding="utf-8") as fo:
     long_description = fo.read()
 
+pkg = "bash_like"
 setup(
-    name="bash_like",
-    version="0.1.1",
+    name=pkg,
+    version="0.1.2",
     url="https://github.com/seanbreckenridge/bash_like",
     author="Sean Breckenridge",
     author_email="seanbrecke@gmail.com",
@@ -18,6 +19,7 @@ setup(
     long_description_content_type="text/markdown",
     license="http://www.apache.org/licenses/LICENSE-2.0",
     packages=find_packages(include=["bash_like"]),
+    package_data={pkg: ['py.typed']},
     keywords="shell file",
     extras_require={
         "testing": [
